@@ -5,9 +5,9 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import WhatsAppButton from "./components/WhatsAppButton";
 import Packages from "./components/Packages";
-import Vehicles from "./components/Vehicles";
+import Services from "./components/Services";
 import Destinations from "./components/Destinations";
-import Gallery from "./components/Gallery";
+import About from "./components/About";
 import Contact from "./components/Contact";
 import Aberdare from "./destination/Aberdare";
 import Amboseli from "./destination/Amboseli";
@@ -37,18 +37,18 @@ function App() {
 
             {/* MULTILINGUAL ROUTES */}
             <Route path="/:lang/home" element={<Home />} />
-            <Route path="/:lang/vehicles" element={<Vehicles />} />
+            <Route path="/:lang/services" element={<Services />} />
             <Route path="/:lang/destinations" element={<Destinations />} />
-            <Route path="/:lang/gallery" element={<Gallery />} />
+            <Route path="/:lang/about" element={<About />} />
             <Route path="/:lang/contact" element={<Contact />} />
             <Route path="/:lang/packages" element={<Packages />} />
 
             {/* BACKWARD COMPATIBILITY (optional) */}
             <Route path="/home" element={<Navigate to="/en/home" />} />
-            <Route path="/vehicles" element={<Navigate to="/en/vehicles" />} />
+            <Route path="/about" element={<Navigate to="/en/about" />} />
             <Route path="/bookingpage" element={<Navigate to="/en/bookingpage" />} />
             <Route path="/destinations" element={<Navigate to="/en/destinations" />} />
-            <Route path="/gallery" element={<Navigate to="/en/gallery" />} />
+            <Route path="/services" element={<Navigate to="/en/services" />} />
             <Route path="/contact" element={<Navigate to="/en/contact" />} />
             <Route path="/packages" element={<Navigate to="/en/packages" />} />
              <Route path="/aberdare" element={<Aberdare />} />

@@ -1,335 +1,1160 @@
-/* eslint-disable jsx-a11y/alt-text */
 
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
-
 import safarilinklogo from "../assets/safarilinklogo.png";
 
+const WHATSAPP_NUMBER = "254112277671";
+
+const destinations = [
+  { name: "Amboseli National Park", path: "/amboseli" },
+  { name: "Lake Nakuru", path: "/lakenakuru" },
+  { name: "Nairobi National Park", path: "/nairobipark" },
+  { name: "Tsavo East National Park", path: "/tsavoeast" },
+  { name: "Tsavo West National Park", path: "/tsavowest" },
+  { name: "Mount Kenya", path: "/mountkenya" },
+  //{ name: "Hell's Gate", path: "/hellsgate" },
+  //{ name: "Aberdare National Park", path: "/aberdare" },
+ // { name: "Meru National Park", path: "/meru" },
+];
+
+const languages = [
+  { code: "en", name: "English", flag: "🇬🇧" },
+  { code: "fr", name: "French", flag: "🇫🇷" },
+  { code: "de", name: "German", flag: "🇩🇪" },
+  { code: "es", name: "Spanish", flag: "🇪🇸" },
+];
+
 function Navbar() {
+  const { t } = useTranslation();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [destOpen, setDestOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
-
-  const langRef = useRef();
-  const { t } = useTranslation();
-
-  const languages = [
-    { code: "en", name: "English", flag: "🇬🇧" },
-    { code: "fr", name: "French", flag: "🇫🇷" },
-    { code: "de", name: "German", flag: "🇩🇪" },
-    { code: "es", name: "Spanish", flag: "🇪🇸" }
-  ];
-
-  const destinations = [
-    ["Aberdare National Park", "/aberdare"],
-    ["Meru National Park", "/meru"],
-    ["Amboseli National Park", "/amboseli"],
-    ["Nairobi National Park", "/nairobipark"],
-    ["Mount Kenya", "/mountkenya"],
-    ["Hell’s Gate", "/hellsgate"],
-    ["Tsavo East", "/tsavoeast"],
-    ["Tsavo West", "/tsavowest"],
-    ["Lake Nakuru", "/lakenakuru"]
-  ];
+  const [currentLanguage, setCurrentLanguage] = useState(
+    i18n.language?.split("-")[0] || "en"
+  );
 
   useEffect(() => {
-    const scroll = () => {
-      const height = document.documentElement.scrollHeight - window.innerHeight;
+    const updateScroll = () => {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
 
-      setProgress((window.scrollY / height) * 100);
-      setScrolled(window.scrollY > 40);
+      setProgress(
+        scrollableHeight > 0
+          ? (window.scrollY / scrollableHeight) * 100
+          : 0
+      );
+
+      setScrolled(window.scrollY > 30);
     };
 
-    const close = (e) => {
-      if (langRef.current && !langRef.current.contains(e.target)) {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setDestOpen(false);
         setLangOpen(false);
       }
     };
 
-    window.addEventListener("scroll", scroll);
-    document.addEventListener("click", close);
+    updateScroll();
+
+    window.addEventListener("scroll", updateScroll, { passive: true });
+    window.addEventListener("resize", updateScroll);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener("scroll", scroll);
-      document.removeEventListener("click", close);
+      window.removeEventListener("scroll", updateScroll);
+      window.removeEventListener("resize", updateScroll);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
-  const changeLanguage = (code, e) => {
-    e.stopPropagation();
+  useEffect(() => {
+    const handleLanguageChange = (language) => {
+      setCurrentLanguage(language?.split("-")[0] || "en");
+    };
+
+    i18n.on("languageChanged", handleLanguageChange);
+
+    return () => {
+      i18n.off("languageChanged", handleLanguageChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const changeLanguage = (code) => {
     i18n.changeLanguage(code);
     localStorage.setItem("lang", code);
+    setCurrentLanguage(code);
     setLangOpen(false);
   };
 
-  const current = languages.find((x) => x.code === i18n.language) || languages[0];
-
-  const closeMobile = () => {
+  const closeMobileMenu = () => {
     setMenuOpen(false);
     setDestOpen(false);
+    setLangOpen(false);
   };
+
+  const navClass = ({ isActive }) =>
+    `tiara-nav-link ${isActive ? "tiara-nav-link-active" : ""}`;
+
+  const bookingUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    "Hello Tiara Tours & Safaris, I would like to enquire about your safari packages."
+  )}`;
 
   return (
     <>
-      {/* SCROLL BAR */}
-      <div className="fixed top-0 left-0 w-full h-[3px] z-[999]">
-        <div className="h-full bg-yellow-400 transition-all" style={{ width: `${progress}%` }} />
-      </div>
-
-      <nav className={`fixed top-0 left-0 w-full z-[100] border-b border-white/10 backdrop-blur-xl transition-all duration-500 ${scrolled ? "bg-[#151515] py-2" : "bg-[#151515] py-4"}`}>
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="h-20 flex items-center justify-between">
-
-            {/* LOGO */}
-            <Link to="/" className="flex items-center gap-3">
-              <img src={safarilinklogo} className="w-11 h-11 rounded-full border border-yellow-400 object-cover" />
-
-              <div>
-                <h2 className="text-yellow-300 font-bold">DenGray </h2>
-                <p className="text-yellow-400 text-xs">Safari Adventures</p>
-              </div>
-            </Link>
-
-            {/* DESKTOP */}
-            <div className="hidden md:flex items-center gap-4">
-
-              <Link to="/" className="navBtn">{t("home")}</Link>
-
-              <div className="relative" onMouseEnter={() => setDestOpen(true)} onMouseLeave={() => setDestOpen(false)}>
-
-                <button className="navBtn">
-                  {t("destinations")} ▾
-                </button>
-
-                {destOpen && (
-                  <div className="dropMenu">
-                    <div className="titleDrop">Explore Parks</div>
-
-                    {destinations.map(([name, path]) => (
-                      <Link key={path} to={path} className="dropItem">
-                        {name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
-              </div>
-
-              <Link to="/gallery" className="navBtn">{t("gallery")}</Link>
-
-              <Link to="/packages" className="navBtn">
-                Packages
-              </Link>
-
-              <Link to="/vehicles" className="navBtn">{t("vehicles")}</Link>
-
-              <Link to="/contact" className="navBtn">{t("contact")}</Link>
-
-              {/* LANGUAGE */}
-              <div ref={langRef} className="relative">
-
-                <button
-                  className="navBtn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLangOpen(!langOpen);
-                  }}
-                >
-                  {current.flag} {current.name}
-                </button>
-
-                <div className={`dropMenu right-0 w-40 ${langOpen ? "show" : "hide"}`}>
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className="dropItem w-full text-left"
-                      onClick={(e) => changeLanguage(lang.code, e)}
-                    >
-                      {lang.flag} {lang.name}
-                    </button>
-                  ))}
-                </div>
-
-              </div>
-
-              <a href="https://wa.me/+254112277671" className="bg-yellow-400 text-black px-5 py-3 rounded-full font-bold">
-                {t("book")}
-              </a>
-
-            </div>
-
-            {/* MOBILE */}
-            <div className="md:hidden flex items-center gap-3">
-
-              <div ref={langRef} className="relative">
-
-                <button
-                  className="mobileLang"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setLangOpen(!langOpen);
-                  }}
-                >
-                  {current.flag} {current.code.toUpperCase()}
-                </button>
-
-                <div className={`dropMenu right-0 w-40 ${langOpen ? "show" : "hide"}`}>
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      className="dropItem w-full text-left"
-                      onClick={(e) => changeLanguage(lang.code, e)}
-                    >
-                      {lang.flag} {lang.name}
-                    </button>
-                  ))}
-                </div>
-
-              </div>
-
-              <button onClick={() => setMenuOpen(true)} className="text-white text-3xl">
-                ☰
-              </button>
-
-            </div>
-
-          </div>
-        </div>
-      </nav>
-
-      {/* OVERLAY */}
+      {/* Scroll progress */}
       <div
-        onClick={closeMobile}
-        className={`fixed inset-0 bg-black/70 backdrop-blur-sm z-[180] transition-all duration-500 md:hidden ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        className="tiara-progress"
+        style={{ width: `${progress}%` }}
+        aria-hidden="true"
       />
 
-      {/* MOBILE DRAWER */}
-      <div className={`fixed top-0 right-0 h-screen w-full bg-[#0d0d0d] z-[200] transition-all duration-500 overflow-y-auto md:hidden ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
+      {/* Main navigation */}
+      <header
+        className={`tiara-header ${
+          scrolled ? "tiara-header-scrolled" : ""
+        }`}
+      >
+        <nav className="tiara-navbar" aria-label="Main navigation">
+          {/* Brand */}
+          <Link
+            to="/"
+            className="tiara-brand"
+            onClick={closeMobileMenu}
+            aria-label="Tiara Tours & Safaris home"
+          >
+            <span className="tiara-logo-frame">
+              <img
+                src={safarilinklogo}
+                alt="Tiara Tours & Safaris logo"
+                className="tiara-logo"
+              />
+            </span>
 
-        <div className="p-5 flex justify-between items-center border-b border-white/10">
-
-          <div className="flex items-center gap-3">
-            <img src={safarilinklogo} className="w-12 h-12 rounded-full border border-yellow-400" />
-
-            <div>
-              <h2 className="text-white font-bold">DenGray </h2>
-              <p className="text-yellow-400 text-xs">Safari Adventures</p>
-            </div>
-          </div>
-
-          <button onClick={closeMobile} className="text-white text-4xl">
-            ✕
-          </button>
-
-        </div>
-
-        <div className="p-6 space-y-4">
-
-          <Link to="/" onClick={closeMobile} className="menuBtn">
-            🏠 {t("home")}
+            <span className="tiara-brand-copy">
+              <span className="tiara-brand-name">
+                TiaraTours & Safaris<span>.</span>
+              </span>
+              <span className="tiara-brand-tagline">
+                SAFARI ADVENTURES
+              </span>
+            </span>
           </Link>
 
-          <button onClick={() => setDestOpen(!destOpen)} className="menuBtn justify-between">
-            🌍 {t("destinations")} <span>⌄</span>
+          {/* Desktop navigation */}
+          <div className="tiara-desktop-nav">
+            <NavLink to="/" end className={navClass}>
+              {t("home")}
+            </NavLink>
+
+
+            <NavLink to="/About" className={navClass}>
+              {t("About")}
+            </NavLink>
+
+            {/* Destinations dropdown */}
+            <div className="tiara-destination-group">
+              <button
+                type="button"
+                className="tiara-nav-link tiara-dropdown-trigger"
+                aria-expanded={destOpen}
+                onClick={() => setDestOpen((open) => !open)}
+              >
+                {t("destinations")}
+                <span className="tiara-chevron">⌄</span>
+              </button>
+
+              <div
+                className={`tiara-destination-menu ${
+                  destOpen ? "tiara-menu-open" : ""
+                }`}
+              >
+                <div className="tiara-dropdown-heading">
+                  <span className="tiara-eyebrow">DISCOVER AFRICA</span>
+                  <h3>Explore destinations</h3>
+                  <p>Find your next unforgettable adventure.</p>
+                </div>
+
+                <div className="tiara-destination-list">
+                  {destinations.map((destination) => (
+                    <Link
+                      key={destination.path}
+                      to={destination.path}
+                      className="tiara-destination-item"
+                      onClick={() => setDestOpen(false)}
+                    >
+                      <span className="tiara-destination-dot" />
+                      {destination.name}
+                      <span className="tiara-item-arrow">↗</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <NavLink to="/packages" className={navClass}>
+              Packages
+            </NavLink>
+
+            <NavLink to="/Services" className={navClass}>
+              {t("Services")}
+            </NavLink>
+
+            
+
+            <NavLink to="/contact" className={navClass}>
+              {t("contact")}
+            </NavLink>
+          </div>
+{/*
+          {/* Desktop actions */}
+          <div className="tiara-desktop-actions">
+            <div className="tiara-language-wrap">
+          {/*    <button
+                type="button"
+                className="tiara-language-button"
+                onClick={() => setLangOpen((open) => !open)}
+                aria-expanded={langOpen}
+                aria-label="Choose language"
+              >
+                <span>◎</span>
+                {currentLanguage.toUpperCase()}
+                <span className="tiara-chevron">⌄</span>
+              </button>
+           */}
+              {langOpen && (
+                <div className="tiara-language-menu">
+                  {languages.map((language) => (
+                    <button
+                      type="button"
+                      key={language.code}
+                      onClick={() => changeLanguage(language.code)}
+                      className={
+                        currentLanguage === language.code
+                          ? "tiara-language-option selected"
+                          : "tiara-language-option"
+                      }
+                    >
+                      <span>{language.flag}</span>
+                      {language.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+   
+            <a
+              href={bookingUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="tiara-book-button"
+            >
+              <span>Book a safari</span>
+              <span className="tiara-book-arrow">↗</span>
+            </a>
+          </div>
+
+          {/* Mobile controls */}
+          <div className="tiara-mobile-controls">
+            <a
+              href={bookingUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="tiara-mobile-book"
+              aria-label="Book a safari on WhatsApp"
+            >
+              Book
+            </a>
+
+            <button
+              type="button"
+              className={`tiara-menu-toggle ${
+                menuOpen ? "is-open" : ""
+              }`}
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+            >
+              <span />
+              <span />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile backdrop */}
+      <button
+        type="button"
+        aria-label="Close navigation menu"
+        className={`tiara-mobile-backdrop ${
+          menuOpen ? "backdrop-visible" : ""
+        }`}
+        onClick={closeMobileMenu}
+        tabIndex={menuOpen ? 0 : -1}
+      />
+
+      {/* Mobile navigation drawer */}
+      <aside
+        className={`tiara-mobile-drawer ${
+          menuOpen ? "drawer-visible" : ""
+        }`}
+        aria-label="Mobile navigation"
+        aria-hidden={!menuOpen}
+        inert={!menuOpen}
+      >
+        <div className="tiara-drawer-top">
+          <Link to="/" className="tiara-brand" onClick={closeMobileMenu}>
+            <span className="tiara-logo-frame">
+              <img
+                src={safarilinklogo}
+                alt=""
+                className="tiara-logo"
+              />
+            </span>
+
+            <span className="tiara-brand-copy">
+              <span className="tiara-brand-name">
+                TiaraTours&Safaris<span>.</span>
+              </span>
+              <span className="tiara-brand-tagline">
+                SAFARI ADVENTURES
+              </span>
+            </span>
+          </Link>
+
+          <button
+            type="button"
+            className="tiara-close-button"
+            onClick={closeMobileMenu}
+            aria-label="Close menu"
+          >
+            ×
+          </button>
+        </div>
+
+        <div className="tiara-drawer-content">
+          <p className="tiara-eyebrow">YOUR NEXT ADVENTURE STARTS HERE</p>
+
+          <NavLink
+            to="/"
+            end
+            className="tiara-mobile-link"
+            onClick={closeMobileMenu}
+          >
+            <span className="tiara-mobile-number">01</span>
+            {t("home")}
+            <span className="tiara-item-arrow">↗</span>
+          </NavLink>
+
+          <button
+            type="button"
+            className="tiara-mobile-link"
+            onClick={() => setDestOpen((open) => !open)}
+            aria-expanded={destOpen}
+          >
+            <span className="tiara-mobile-number">02</span>
+            {t("destinations")}
+            <span className="tiara-mobile-chevron">
+              {destOpen ? "−" : "+"}
+            </span>
           </button>
 
           {destOpen && (
-            <div className="bg-[#1a1a1a] p-4 rounded-2xl">
-
-              {destinations.map(([name, path]) => (
-                <Link key={path} to={path} onClick={closeMobile} className="block py-3 text-gray-300">
-                  🦁 {name}
+            <div className="tiara-mobile-destinations">
+              {destinations.map((destination) => (
+                <Link
+                  key={destination.path}
+                  to={destination.path}
+                  onClick={closeMobileMenu}
+                >
+                  {destination.name}
+                  <span>↗</span>
                 </Link>
               ))}
-
             </div>
           )}
+         
+         <NavLink
+            to="/About"
+            className="tiara-mobile-link"
+            onClick={closeMobileMenu}
+          >
+            <span className="tiara-mobile-number">05</span>
+            {t("About")}
+            <span className="tiara-item-arrow">↗</span>
+          </NavLink>
 
-          <Link to="/gallery" onClick={closeMobile} className="menuBtn">
-            📸 {t("gallery")}
-          </Link>
+          <NavLink
+            to="/packages"
+            className="tiara-mobile-link"
+            onClick={closeMobileMenu}
+          >
+            <span className="tiara-mobile-number">03</span>
+            Packages
+            <span className="tiara-item-arrow">↗</span>
+          </NavLink>
 
-          <Link to="/packages" onClick={closeMobile} className="menuBtn">
-            📦 Packages
-          </Link>
+          <NavLink
+            to="/Services"
+            className="tiara-mobile-link"
+            onClick={closeMobileMenu}
+          >
+            <span className="tiara-mobile-number">04</span>
+            {t("Services")}
+            <span className="tiara-item-arrow">↗</span>
+          </NavLink>
 
-          <Link to="/vehicles" onClick={closeMobile} className="menuBtn">
-            🚙 {t("vehicles")}
-          </Link>
+          
 
-          <Link to="/contact" onClick={closeMobile} className="menuBtn">
-            📞 {t("contact")}
-          </Link>
+          <NavLink
+            to="/contact"
+            className="tiara-mobile-link"
+            onClick={closeMobileMenu}
+          >
+            <span className="tiara-mobile-number">06</span>
+            {t("contact")}
+            <span className="tiara-item-arrow">↗</span>
+          </NavLink>
+        {/*
+          <div className="tiara-mobile-language">
+            <label htmlFor="tiara-language-select">Language</label>
+            <select
+              id="tiara-language-select"
+              value={currentLanguage}
+              onChange={(event) => changeLanguage(event.target.value)}
+            >
+              {languages.map((language) => (
+                <option key={language.code} value={language.code}>
+                  {language.flag} {language.name}
+                </option>
+              ))}
+            </select>
+          </div>    */}
 
+          <a
+            href={bookingUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="tiara-drawer-book"
+          >
+            Plan your safari <span>↗</span>
+          </a>
+
+          <div className="tiara-drawer-footer">
+            <span>KENYA · EAST AFRICA</span>
+            <span>ADVENTURE AWAITS.</span>
+          </div>
         </div>
+      </aside>
 
-      </div>
-
+      {/* Navbar styling */}
       <style>{`
-        .navBtn{
-          color:white;
-          padding:10px 14px;
-          border-radius:12px;
-          background:#222;
-          transition:.3s;
+        :root {
+          --tiara-green: #176b43;
+          --tiara-green-bright: #2ca66b;
+          --tiara-green-dark: #071b12;
+          --tiara-black: #080b09;
+          --tiara-white: #ffffff;
+          --tiara-muted: #a4b0a8;
         }
 
-        .navBtn:hover{
-          background:#333;
-          color:#facc15;
+        .tiara-progress {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 3px;
+          z-index: 1001;
+          background: linear-gradient(
+            90deg,
+            var(--tiara-green),
+            #6bd39a
+          );
+          transition: width 0.12s linear;
+          pointer-events: none;
         }
 
-        .mobileLang{
-          background:#222;
-          padding:8px 14px;
-          border-radius:999px;
-          color:white;
-          font-size:12px;
-          border:1px solid rgba(255,255,255,.2);
+        .tiara-header {
+          position: fixed;
+          top: 3px;
+          left: 0;
+          width: 100%;
+          z-index: 500;
+          color: var(--tiara-white);
+          background: rgba(8, 11, 9, 0.92);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
+          transition:
+            background 0.3s ease,
+            box-shadow 0.3s ease;
         }
 
-        .dropMenu{
-          position:absolute;
-          top:48px;
-          background:#151515;
-          border-radius:14px;
-          overflow:hidden;
-          border:1px solid rgba(255,255,255,.1);
-          box-shadow:0 20px 40px #000;
+        .tiara-header-scrolled {
+          background: rgba(5, 13, 9, 0.98);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
         }
 
-        .dropItem{
-          display:block;
-          padding:12px 16px;
-          color:#ddd;
+        .tiara-navbar {
+          width: min(1440px, 100%);
+          min-height: 94px;
+          margin: 0 auto;
+          padding: 0 4.5%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 26px;
+          transition: min-height 0.3s ease;
         }
 
-        .dropItem:hover{
-          background:#fff;
-          color:#111;
+        .tiara-header-scrolled .tiara-navbar {
+          min-height: 78px;
         }
 
-        .menuBtn{
-          display:flex;
-          align-items:center;
-          padding:18px;
-          border-radius:18px;
-          background:#1b1b1b;
-          color:white;
-          border:1px solid rgba(255,255,255,.08);
+        .tiara-brand {
+          display: inline-flex;
+          align-items: center;
+          gap: 12px;
+          flex-shrink: 0;
+          color: white;
+          text-decoration: none;
         }
 
-        .show{
-          opacity:1;
+        .tiara-logo-frame {
+          width: 49px;
+          height: 49px;
+          display: grid;
+          place-items: center;
+          padding: 3px;
+          border: 1px solid rgba(78, 190, 125, 0.8);
+          border-radius: 50%;
+          background: #10271b;
+          overflow: hidden;
         }
 
-        .hide{
-          opacity:0;
-          pointer-events:none;
+        .tiara-logo {
+          display: block;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .tiara-brand-copy {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+
+        .tiara-brand-name {
+          font-size: 23px;
+          line-height: 1;
+          font-weight: 800;
+          letter-spacing: -0.8px;
+        }
+
+        .tiara-brand-name > span {
+          color: #57c989;
+        }
+
+        .tiara-brand-tagline {
+          color: #b5c5ba;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 2px;
+        }
+
+        .tiara-desktop-nav {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .tiara-nav-link {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          min-height: 42px;
+          padding: 0 12px;
+          border: 0;
+          border-radius: 8px;
+          background: transparent;
+          color: #e5eae6;
+          font: inherit;
+          font-size: 13px;
+          font-weight: 500;
+          text-decoration: none;
+          white-space: nowrap;
+          cursor: pointer;
+          transition:
+            color 0.2s ease,
+            background 0.2s ease;
+        }
+
+        .tiara-nav-link:hover,
+        .tiara-nav-link-active {
+          color: #73d79c;
+          background: rgba(44, 166, 107, 0.09);
+        }
+
+        .tiara-nav-link-active::after {
+          content: "";
+          position: absolute;
+          left: 12px;
+          right: 12px;
+          bottom: 3px;
+          height: 2px;
+          border-radius: 3px;
+          background: var(--tiara-green-bright);
+        }
+
+        .tiara-chevron {
+          color: #7ed6a0;
+          font-size: 15px;
+          line-height: 1;
+        }
+
+        .tiara-destination-group,
+        .tiara-language-wrap {
+          position: relative;
+        }
+
+        .tiara-destination-menu {
+          position: absolute;
+          top: calc(100% + 15px);
+          left: 0;
+          width: 350px;
+          padding: 22px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          background: #0b1510;
+          box-shadow: 0 25px 65px rgba(0, 0, 0, 0.42);
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(8px);
+          transition:
+            opacity 0.2s ease,
+            transform 0.2s ease,
+            visibility 0.2s ease;
+        }
+
+        .tiara-destination-group:hover .tiara-destination-menu,
+        .tiara-destination-group:focus-within .tiara-destination-menu,
+        .tiara-destination-menu.tiara-menu-open {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .tiara-dropdown-heading {
+          padding-bottom: 16px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tiara-eyebrow {
+          color: #65c88e;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 2px;
+        }
+
+        .tiara-dropdown-heading h3 {
+          margin: 8px 0 5px;
+          color: white;
+          font-size: 19px;
+          font-weight: 700;
+        }
+
+        .tiara-dropdown-heading p {
+          margin: 0;
+          color: #9eada3;
+          font-size: 12px;
+          line-height: 1.6;
+        }
+
+        .tiara-destination-list {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 3px 12px;
+        }
+
+        .tiara-destination-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          min-width: 0;
+          padding: 10px 0;
+          color: #d6ded8;
+          font-size: 11px;
+          line-height: 1.5;
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+
+        .tiara-destination-item:hover {
+          color: #70d89a;
+        }
+
+        .tiara-destination-dot {
+          width: 5px;
+          height: 5px;
+          flex: 0 0 5px;
+          border-radius: 50%;
+          background: #48ad75;
+        }
+
+        .tiara-item-arrow {
+          margin-left: auto;
+          color: #64ce90;
+          opacity: 0;
+          transition: opacity 0.2s ease;
+        }
+
+        .tiara-destination-item:hover .tiara-item-arrow,
+        .tiara-mobile-link:hover .tiara-item-arrow {
+          opacity: 1;
+        }
+
+        .tiara-desktop-actions {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          flex-shrink: 0;
+        }
+
+        .tiara-language-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 10px 7px;
+          border: 0;
+          background: transparent;
+          color: #e0e7e2;
+          font-size: 11px;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        .tiara-language-button > span:first-child {
+          color: #70d89a;
+          font-size: 17px;
+        }
+
+        .tiara-language-menu {
+          position: absolute;
+          top: calc(100% + 12px);
+          right: 0;
+          width: 155px;
+          padding: 6px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          background: #0c1710;
+          box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .tiara-language-option {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          width: 100%;
+          padding: 11px;
+          border: 0;
+          border-radius: 7px;
+          background: transparent;
+          color: #dce4de;
+          font-size: 12px;
+          text-align: left;
+          cursor: pointer;
+        }
+
+        .tiara-language-option:hover,
+        .tiara-language-option.selected {
+          background: rgba(44, 166, 107, 0.15);
+          color: #7ce0a4;
+        }
+
+        .tiara-book-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+          min-height: 45px;
+          padding: 0 17px;
+          border: 1px solid #2ca66b;
+          border-radius: 8px;
+          background: #237c4c;
+          color: white;
+          font-size: 12px;
+          font-weight: 700;
+          text-decoration: none;
+          white-space: nowrap;
+          transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+        }
+
+        .tiara-book-button:hover {
+          background: #2d995f;
+          transform: translateY(-1px);
+        }
+
+        .tiara-book-arrow {
+          font-size: 16px;
+        }
+
+        .tiara-mobile-controls {
+          display: none;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .tiara-mobile-book {
+          padding: 10px 14px;
+          border-radius: 7px;
+          background: #237c4c;
+          color: white;
+          font-size: 12px;
+          font-weight: 700;
+          text-decoration: none;
+        }
+
+        .tiara-menu-toggle {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 6px;
+          width: 42px;
+          height: 42px;
+          padding: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.13);
+          border-radius: 8px;
+          background: #101a13;
+          cursor: pointer;
+        }
+
+        .tiara-menu-toggle span {
+          display: block;
+          width: 100%;
+          height: 2px;
+          border-radius: 3px;
+          background: white;
+          transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+        }
+
+        .tiara-menu-toggle.is-open span:first-child {
+          transform: translateY(4px) rotate(45deg);
+        }
+
+        .tiara-menu-toggle.is-open span:last-child {
+          transform: translateY(-4px) rotate(-45deg);
+        }
+
+        .tiara-mobile-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 600;
+          width: 100%;
+          height: 100%;
+          border: 0;
+          background: rgba(0, 0, 0, 0.65);
+          opacity: 0;
+          visibility: hidden;
+          transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+        }
+
+        .tiara-mobile-backdrop.backdrop-visible {
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .tiara-mobile-drawer {
+          position: fixed;
+          top: 0;
+          right: 0;
+          z-index: 700;
+          display: flex;
+          flex-direction: column;
+          width: min(430px, 100%);
+          height: 100dvh;
+          overflow-y: auto;
+          background: #08120c;
+          color: white;
+          border-left: 1px solid rgba(255, 255, 255, 0.08);
+          transform: translateX(102%);
+          visibility: hidden;
+          transition:
+            transform 0.35s ease,
+            visibility 0.35s ease;
+        }
+
+        .tiara-mobile-drawer.drawer-visible {
+          transform: translateX(0);
+          visibility: visible;
+        }
+
+        .tiara-drawer-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 22px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tiara-close-button {
+          width: 40px;
+          height: 40px;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 8px;
+          background: #122018;
+          color: white;
+          font-size: 27px;
+          line-height: 1;
+          cursor: pointer;
+        }
+
+        .tiara-drawer-content {
+          padding: 28px 22px 20px;
+        }
+
+        .tiara-drawer-content > .tiara-eyebrow {
+          margin: 0 0 20px;
+          line-height: 1.7;
+        }
+
+        .tiara-mobile-link {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          width: 100%;
+          min-height: 61px;
+          padding: 12px 0;
+          border: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+          background: transparent;
+          color: #f2f5f2;
+          font: inherit;
+          font-size: 17px;
+          font-weight: 600;
+          text-align: left;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .tiara-mobile-link.active {
+          color: #76d79d;
+        }
+
+        .tiara-mobile-number {
+          color: #62c88b;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: 1px;
+        }
+
+        .tiara-mobile-chevron {
+          margin-left: auto;
+          color: #70d89a;
+          font-size: 22px;
+          font-weight: 400;
+        }
+
+        .tiara-mobile-destinations {
+          padding: 9px 0 12px 25px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+
+        .tiara-mobile-destinations a {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 11px 0;
+          color: #b8c7bd;
+          font-size: 13px;
+          text-decoration: none;
+        }
+
+        .tiara-mobile-destinations a:hover {
+          color: #76d79d;
+        }
+
+        .tiara-mobile-language {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          margin-top: 25px;
+          padding: 14px 0;
+          color: #b7c5bc;
+          font-size: 13px;
+        }
+
+        .tiara-mobile-language select {
+          max-width: 170px;
+          padding: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.13);
+          border-radius: 7px;
+          background: #132219;
+          color: white;
+          font: inherit;
+        }
+
+        .tiara-drawer-book {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 13px;
+          padding: 17px 18px;
+          border-radius: 8px;
+          background: #237c4c;
+          color: white;
+          font-size: 14px;
+          font-weight: 700;
+          text-decoration: none;
+        }
+
+        .tiara-drawer-book span {
+          font-size: 19px;
+        }
+
+        .tiara-drawer-footer {
+          display: flex;
+          justify-content: space-between;
+          gap: 12px;
+          margin-top: 28px;
+          padding-top: 18px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+          color: #809087;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 1px;
+        }
+
+        @media (max-width: 1250px) {
+          .tiara-navbar {
+            padding: 0 3%;
+            gap: 12px;
+          }
+
+          .tiara-brand {
+            gap: 9px;
+          }
+
+          .tiara-logo-frame {
+            width: 43px;
+            height: 43px;
+          }
+
+          .tiara-brand-name {
+            font-size: 20px;
+          }
+
+          .tiara-brand-tagline {
+            font-size: 8px;
+            letter-spacing: 1.5px;
+          }
+
+          .tiara-nav-link {
+            padding: 0 8px;
+            font-size: 12px;
+          }
+
+          .tiara-desktop-actions {
+            gap: 7px;
+          }
+
+          .tiara-book-button {
+            gap: 8px;
+            padding: 0 12px;
+          }
+        }
+
+        @media (max-width: 1020px) {
+          .tiara-navbar,
+          .tiara-header-scrolled .tiara-navbar {
+            min-height: 76px;
+            padding: 0 22px;
+          }
+
+          .tiara-desktop-nav,
+          .tiara-desktop-actions {
+            display: none;
+          }
+
+          .tiara-mobile-controls {
+            display: flex;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .tiara-navbar,
+          .tiara-header-scrolled .tiara-navbar {
+            min-height: 70px;
+            padding: 0 15px;
+          }
+
+          .tiara-logo-frame {
+            width: 40px;
+            height: 40px;
+          }
+
+          .tiara-brand-name {
+            font-size: 19px;
+          }
+
+          .tiara-brand-tagline {
+            font-size: 7px;
+            letter-spacing: 1.3px;
+          }
+
+          .tiara-mobile-controls {
+            gap: 9px;
+          }
+
+          .tiara-mobile-book {
+            padding: 10px 11px;
+          }
+
+          .tiara-menu-toggle {
+            width: 39px;
+            height: 39px;
+          }
+
+          .tiara-drawer-content {
+            padding: 24px 18px 20px;
+          }
+
+          .tiara-drawer-top {
+            padding: 18px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .tiara-header,
+          .tiara-navbar,
+          .tiara-mobile-drawer,
+          .tiara-mobile-backdrop,
+          .tiara-menu-toggle span {
+            transition: none;
+          }
         }
       `}</style>
     </>
