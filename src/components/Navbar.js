@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 import safarilinklogo from "../assets/safarilinklogo.png";
 
-const WHATSAPP_NUMBER = "254112277671";
+const WHATSAPP_NUMBER = "254748799417";
 
 const destinations = [
   { name: "Amboseli National Park", path: "/amboseli" },
