@@ -317,35 +317,7 @@ useEffect(() => {
         {t("heroDesc")}
       </p>
 
-      {/* CALL TO ACTIONS */}
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
-        <Link
-          to="/safari-packages"
-          className="group inline-flex min-h-[46px] items-center justify-center gap-3 rounded-lg bg-emerald-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-950/30 transition duration-300 hover:-translate-y-0.5 hover:bg-emerald-500 sm:px-6 sm:text-sm"
-        >
-          Explore Safari Packages
-          <span className="text-base transition-transform duration-300 group-hover:translate-x-1">
-            →
-          </span>
-        </Link>
-
-        <a
-          href="https://wa.me/254748799417"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex min-h-[46px] items-center justify-center gap-2.5 rounded-lg border border-white/35 bg-white/10 px-5 py-3 text-xs font-semibold text-white backdrop-blur-md transition duration-300 hover:border-emerald-400 hover:bg-white/15 sm:px-6 sm:text-sm"
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            className="h-4 w-4 text-emerald-300"
-            aria-hidden="true"
-          >
-            <path d="M20.52 3.48A11.87 11.87 0 0 0 12.05 0C5.48 0 .13 5.35.13 11.92c0 2.1.55 4.16 1.6 5.98L0 24l6.25-1.64a11.9 11.9 0 0 0 5.8 1.48h.01c6.57 0 11.92-5.35 11.92-11.92 0-3.19-1.24-6.19-3.46-8.44ZM12.06 21.8a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.71.97.99-3.62-.24-.37a9.86 9.86 0 0 1-1.52-5.27c0-5.48 4.46-9.94 9.94-9.94a9.87 9.87 0 0 1 7.03 2.91 9.87 9.87 0 0 1 2.91 7.03c0 5.48-4.46 9.94-9.94 9.94Zm5.45-7.44c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.8-1.49-1.78-1.67-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.11 4.52.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z" />
-          </svg>
-          Plan Your Adventure
-        </a>
-      </div>
+      
 
       {/* TRUST INDICATORS */}
       <div className="mt-6 flex flex-wrap gap-2 sm:gap-3">
