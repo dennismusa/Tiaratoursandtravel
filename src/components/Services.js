@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 import React from "react";
 import {
@@ -11,6 +12,7 @@ import {
   Waves,
   Camera,
   Users,
+  // eslint-disable-next-line no-unused-vars
   MapPin,
   CalendarDays,
   CheckCircle2,
@@ -430,7 +432,7 @@ export default function Services() {
                       href={createServiceWhatsAppLink(service.title)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-auto inline-flex items-center justify-between gap-3 border-t border-gray-100 pt-6 mt-7 text-sm font-bold text-[#0B5D36]"
+                      className="mt-auto inline-flex items-center justify-between gap-3 border-t border-gray-100 pt-6 text-sm font-bold text-[#0B5D36]"
                     >
                       <span>Enquire About This Service</span>
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-50 transition duration-300 group-hover:bg-[#0B5D36] group-hover:text-white">

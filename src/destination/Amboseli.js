@@ -10,7 +10,7 @@ import {
   Camera,
   Compass,
   Mountain,
-  Binoculars,
+  
   Bird,
   Car,
   ChevronDown,

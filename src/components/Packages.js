@@ -7,7 +7,7 @@ import {
   MapPin,
   Compass,
   Users,
-  Clock3,
+  
   CheckCircle2,
   Mountain,
   TentTree,

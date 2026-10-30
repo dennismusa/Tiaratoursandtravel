@@ -7,7 +7,7 @@ import {
   Clock,
   Camera,
   PawPrint,
-  Binoculars,
+  
   Trees,
   Bird,
   CheckCircle2,

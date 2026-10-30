@@ -9,10 +9,7 @@ import {
   Trees,
   Footprints,
   Snowflake,
-  CheckCircle2,
-  Globe2,
-  TentTree,
-  Binoculars,
+ 
 } from "lucide-react";
 
 import image1 from "../assets/image1.jpg";

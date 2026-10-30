@@ -11,8 +11,7 @@ import {
   Users,
   Target,
   Eye,
-  Mountain,
-  CheckCircle2,
+  
   Sparkles,
   MoveUpRight,
   Phone,
