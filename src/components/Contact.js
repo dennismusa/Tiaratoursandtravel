@@ -19,8 +19,8 @@ import { Link } from "react-router-dom";
 import tiara1 from "../assets/tiara1.jpg";
 import tiara2 from "../assets/tiara2.jpg";
 
-const WHATSAPP_NUMBER = "254737087846";
-const PHONE_NUMBER = "+254 737 087846";
+const WHATSAPP_NUMBER = "254 748 799417";
+const PHONE_NUMBER = "+254 748 799417";
 const ALTERNATE_PHONE = "+254 748 799417";
 const EMAIL = "thetiaratoursandtravel@gmail.com";
 
@@ -30,7 +30,7 @@ const contactDetails = [
     label: "Call our team",
     value: PHONE_NUMBER,
     subtext: "Speak with us about your next adventure.",
-    href: "tel:+254737087846",
+    href: "tel:+254 748 799417",
   },
   {
     icon: Mail,
