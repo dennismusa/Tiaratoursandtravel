@@ -322,6 +322,7 @@ useEffect(() => {
         {t("heroDesc")}
       </p>
 
+
       {/* CALL TO ACTIONS */}
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
         <Link
@@ -351,6 +352,9 @@ useEffect(() => {
           Plan Your Adventure
         </a>
       </div>
+
+      
+
 
       {/* TRUST INDICATORS */}
       <div className="mt-6 flex flex-wrap gap-2 sm:gap-3">

@@ -22,6 +22,11 @@ import tiara2 from "../assets/tiara2.jpg";
 const WHATSAPP_NUMBER = "+254748799417";
 const PHONE_NUMBER = "+254748799417";
 const ALTERNATE_PHONE = "+254748799417";
+
+const WHATSAPP_NUMBER = "254 748 799417";
+const PHONE_NUMBER = "+254 748 799417";
+const ALTERNATE_PHONE = "+254 748 799417";
+
 const EMAIL = "thetiaratoursandtravel@gmail.com";
 
 const contactDetails = [
@@ -30,7 +35,11 @@ const contactDetails = [
     label: "Call our team",
     value: PHONE_NUMBER,
     subtext: "Speak with us about your next adventure.",
+<<<<<<< HEAD
     href: "tel:+254748799417",
+=======
+    href: "tel:+254 748 799417",
+>>>>>>> b869de5e67fab6600a3241f4d8ccfc344a180a59
   },
   {
     icon: Mail,
