@@ -19,8 +19,16 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import tiara1 from "../assets/tiara1.jpg";
+import mara4 from "../assets/mara4.jpg";
+import nakuru from "../assets/nakuru.jpg";
+import nakuru2 from "../assets/nakuru2.jpg";
+import nakuru3 from "../assets/nakuru3.jpg";
+import image4 from "../assets/image4.jpg";
+import diani5 from "../assets/diani5.jpg";
+import kenya1 from "../assets/kenya1.jpg";
 
-const WHATSAPP_NUMBER = "254737087846";
+
+const WHATSAPP_NUMBER = "+254748799417";
 
 const packages = [
   {
@@ -29,8 +37,7 @@ const packages = [
     category: "Wildlife Safari",
     location: "Maasai Mara, Kenya",
     duration: "3 Days / 2 Nights",
-    image:
-      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1100&q=85",
+    image:mara4,
     description:
       "Discover Kenya's iconic savannah, incredible wildlife, and unforgettable game-drive experiences in the legendary Maasai Mara.",
     highlights: [
@@ -47,8 +54,7 @@ const packages = [
     category: "Wildlife Safari",
     location: "Amboseli, Kenya",
     duration: "3 Days / 2 Nights",
-    image:
-      "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=1100&q=85",
+    image:nakuru2,
     description:
       "Experience vast open plains, spectacular elephant encounters, and breathtaking views of Mount Kilimanjaro.",
     highlights: [
@@ -65,8 +71,7 @@ const packages = [
     category: "Nature Escape",
     location: "Lake Nakuru, Kenya",
     duration: "2 Days / 1 Night",
-    image:
-      "https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&w=1100&q=85",
+    image:nakuru3 ,
     description:
       "Explore a beautiful Rift Valley destination known for its wildlife, picturesque lake views, and peaceful natural surroundings.",
     highlights: [
@@ -83,8 +88,7 @@ const packages = [
     category: "Wildlife Safari",
     location: "Tsavo, Kenya",
     duration: "3 Days / 2 Nights",
-    image:
-      "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1100&q=85",
+    image:image4,
     description:
       "Journey into one of Kenya's great wilderness regions, surrounded by dramatic landscapes and remarkable wildlife.",
     highlights: [
@@ -101,8 +105,7 @@ const packages = [
     category: "Beach Holiday",
     location: "Diani, Kenya",
     duration: "4 Days / 3 Nights",
-    image:
-      "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1100&q=85",
+    image:diani5,
     description:
       "Unwind on beautiful white-sand beaches, enjoy ocean views, and experience a relaxing coastal getaway.",
     highlights: [
@@ -119,8 +122,7 @@ const packages = [
     category: "Adventure",
     location: "Mount Kenya, Kenya",
     duration: "Custom Itinerary",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1100&q=85",
+    image:kenya1,
     description:
       "Discover dramatic mountain scenery, fresh alpine air, and rewarding outdoor adventures in Kenya's highlands.",
     highlights: [
@@ -213,7 +215,7 @@ export default function Packages() {
 
       <div className="mt-7 flex flex-wrap gap-3">
         <a
-          href="#all-packages"
+          href="#packages"
           className="group inline-flex items-center gap-2.5 rounded-full bg-[#0B5D36] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-green-700"
         >
           Explore Packages
@@ -236,7 +238,7 @@ export default function Packages() {
     <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-white/20 pt-4 text-[10px] uppercase tracking-[0.16em] text-white/70 sm:mt-12 sm:text-xs">
       <span>Discover. Experience. Remember.</span>
       <a
-        href="#all-packages"
+        href="#packages"
         className="inline-flex items-center gap-2 transition hover:text-white"
       >
         Find Your Experience
@@ -290,7 +292,7 @@ export default function Packages() {
 
       {/* PACKAGES */}
       <section
-        id="all-packages"
+        id="packages"
         className="scroll-mt-24 bg-[#F7F8F6] px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28"
       >
         <div className="mx-auto max-w-[1400px]">
@@ -681,7 +683,7 @@ export default function Packages() {
           {[
             ["Home", "/"],
             ["Destinations", "/destinations"],
-            ["Safari Packages", "/safari-packages"],
+            ["Safari Packages", "/packages"],
             ["About Us", "/about"],
             ["Contact Us", "/contact"],
           ].map(([label, href]) => (
@@ -714,7 +716,7 @@ export default function Packages() {
           ].map(([title, description]) => (
             <li key={title} className="group">
               <a
-                href="/safari-packages"
+                href="/packages"
                 className="block"
               >
                 <span className="text-sm font-semibold text-white/80 transition-colors group-hover:text-emerald-300">

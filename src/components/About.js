@@ -114,7 +114,7 @@ export default function About() {
 
         <div className="flex flex-wrap gap-3">
           <Link
-            to="/safari-packages"
+            to="/packages"
             className="group inline-flex items-center gap-2.5 rounded-full bg-[#0B5D36] px-5 py-3 text-xs font-semibold text-white transition duration-300 hover:bg-green-700 sm:px-6 sm:py-3.5 sm:text-sm"
           >
             Explore Safaris
@@ -139,14 +139,7 @@ export default function About() {
     <div className="mt-9 flex flex-wrap items-center justify-between gap-3 border-t border-white/20 pt-4 text-[9px] uppercase tracking-[0.14em] text-white/60 sm:mt-11 sm:pt-5 sm:text-[10px] sm:tracking-[0.18em]">
       <span>Explore. Experience. Remember.</span>
 
-      <a
-        href="#our-story"
-        className="inline-flex items-center gap-2 transition hover:text-white"
-      >
-        Discover Our Story
-        <ArrowDownRight size={16} />
-      </a>
-    </div>
+          </div>
   </div>
 </section>
 
@@ -208,7 +201,7 @@ export default function About() {
               </p>
 
               <Link
-                to="/safari-packages"
+                to="/packages"
                 className="group mt-9 inline-flex items-center gap-3 border-b-2 border-[#0B5D36] pb-2 text-sm font-bold text-[#0B5D36]"
               >
                 Discover Our Experiences
@@ -264,7 +257,7 @@ export default function About() {
             </p>
 
             <Link
-              to="/safari-packages"
+              to="/packages"
               className="group mt-8 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[#0B5D36] transition hover:bg-green-50"
             >
               View Safari Packages
@@ -504,7 +497,7 @@ export default function About() {
             </Link>
 
             <a
-              href="https://wa.me/254737087846"
+              href="https://wa.me/+254748799417"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 rounded-full border border-white/25 px-7 py-4 font-semibold text-white transition hover:border-white hover:bg-white/10"
@@ -623,7 +616,7 @@ export default function About() {
           {[
             ["Home", "/"],
             ["Destinations", "/destinations"],
-            ["Safari Packages", "/safari-packages"],
+            ["Safari Packages", "/packages"],
             ["About Us", "/about"],
             ["Contact Us", "/contact"],
           ].map(([label, href]) => (
@@ -656,7 +649,7 @@ export default function About() {
           ].map(([title, description]) => (
             <li key={title} className="group">
               <a
-                href="/safari-packages"
+                href="/packages"
                 className="block"
               >
                 <span className="text-sm font-semibold text-white/80 transition-colors group-hover:text-emerald-300">

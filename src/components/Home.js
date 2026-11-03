@@ -35,6 +35,11 @@ import tiara5 from "../assets/tiara5.jpg";
 import safarivan from "../assets/safarivan.jpg";
 
 
+import mara from "../assets/mara.jpg";
+import mara4 from "../assets/mara4.jpg";
+import mara3 from "../assets/mara3.jpg";
+import diani5 from "../assets/diani5.jpg";
+
 import poster1 from "../assets/poster1.jpg";
 import poster2 from "../assets/poster2.jpg";
 import poster3 from "../assets/poster3.jpg";
@@ -46,7 +51,7 @@ function Home() {
   useLanguageSync();
   const images = [tiara2, tiara1,tiara5,safarivan];
   const [index, setIndex] = useState(0);
-const aboutImages = [tiara5];
+const aboutImages = [cruiser2,image17,image16,nakuru,west,amboseli];
 const [aboutIndex,setAboutIndex]=useState(0);
 const [smallAboutIndex,setSmallAboutIndex]=useState(1);
 
@@ -320,7 +325,7 @@ useEffect(() => {
       {/* CALL TO ACTIONS */}
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
         <Link
-          to="/safari-packages"
+          to="/packages"
           className="group inline-flex min-h-[46px] items-center justify-center gap-3 rounded-lg bg-emerald-600 px-5 py-3 text-xs font-bold text-white shadow-lg shadow-emerald-950/30 transition duration-300 hover:-translate-y-0.5 hover:bg-emerald-500 sm:px-6 sm:text-sm"
         >
           Explore Safari Packages
@@ -608,7 +613,7 @@ useEffect(() => {
         {/* Call to action */}
         <div className="mt-9 flex flex-col gap-4 sm:flex-row">
           <a
-            href="/safari-packages"
+            href="/packages"
             className="group inline-flex items-center justify-center gap-3 rounded-full bg-emerald-900 px-7 py-4 text-sm font-extrabold text-white shadow-lg shadow-emerald-950/15 transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-800 hover:shadow-xl"
           >
             Explore Our Safaris
@@ -658,7 +663,7 @@ useEffect(() => {
 
 
 <section
-  id="safari-packages"
+  id="packages"
   className="relative isolate overflow-hidden bg-[#f8f7f1] px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-28"
 >
   {/* BACKGROUND DECORATION */}
@@ -1308,7 +1313,7 @@ useEffect(() => {
         </p>
 
         <a
-          href="/safari-packages"
+          href="/packages"
           className="group mt-6 inline-flex items-center gap-3 text-xs font-extrabold uppercase tracking-[0.15em] text-[#101412] transition-colors hover:text-[#0B5D36]"
         >
           Find Your Safari
@@ -1323,49 +1328,45 @@ useEffect(() => {
     <div className="mt-14 grid grid-cols-1 gap-5 sm:mt-20 sm:grid-cols-2 lg:grid-cols-12 lg:gap-6">
       {[
         {
-          name: "Maasai Mara",
-          subtitle: "Where the wild comes alive",
-          location: "Southwestern Kenya",
-          category: "Signature Safari",
-          number: "01",
-          size: "lg:col-span-7",
-          image:
-            "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1500&q=90",
-          tags: ["Big Five", "Game Drives", "Wildlife Migration"],
-        },
-        {
-          name: "Amboseli",
-          subtitle: "Giants beneath Kilimanjaro",
-          location: "Southern Kenya",
-          category: "Wildlife & Scenery",
-          number: "02",
-          size: "lg:col-span-5",
-          image:
-            "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1200&q=90",
-          tags: ["Elephants", "Photography", "Scenic Views"],
-        },
-        {
-          name: "Lake Nakuru",
-          subtitle: "A different kind of wild",
-          location: "Kenya's Rift Valley",
-          category: "Nature Escape",
-          number: "03",
-          size: "lg:col-span-5",
-          image:
-            "https://images.unsplash.com/photo-1535338454770-8be927b5a00b?auto=format&fit=crop&w=1200&q=90",
-          tags: ["Birdlife", "Nature", "Wildlife"],
-        },
-        {
-          name: "Diani Beach",
-          subtitle: "Let the ocean slow you down",
-          location: "Kenya's South Coast",
-          category: "Coastal Retreat",
-          number: "04",
-          size: "lg:col-span-7",
-          image:
-            "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1500&q=90",
-          tags: ["White Sands", "Ocean Views", "Relaxation"],
-        },
+  name: "Maasai Mara",
+  subtitle: "Where the wild comes alive",
+  location: "Southwestern Kenya",
+  category: "Signature Safari",
+  number: "01",
+  size: "lg:col-span-7",
+  image: mara,
+  tags: ["Big Five", "Game Drives", "Wildlife Migration"],
+},
+{
+  name: "Amboseli",
+  subtitle: "Giants beneath Kilimanjaro",
+  location: "Southern Kenya",
+  category: "Wildlife & Scenery",
+  number: "02",
+  size: "lg:col-span-5",
+  image: amboseli,
+  tags: ["Elephants", "Photography", "Scenic Views"],
+},
+{
+  name: "Lake Nakuru",
+  subtitle: "A different kind of wild",
+  location: "Kenya's Rift Valley",
+  category: "Nature Escape",
+  number: "03",
+  size: "lg:col-span-5",
+  image: nakuru,
+  tags: ["Birdlife", "Nature", "Wildlife"],
+},
+{
+  name: "Diani Beach",
+  subtitle: "Let the ocean slow you down",
+  location: "Kenya's South Coast",
+  category: "Coastal Retreat",
+  number: "04",
+  size: "lg:col-span-7",
+  image: diani5,
+  tags: ["White Sands", "Ocean Views", "Relaxation"],
+},
       ].map((destination) => (
         <article
           key={destination.name}
@@ -1433,7 +1434,7 @@ useEffect(() => {
 
             <div className="mt-6 flex items-center justify-between border-t border-white/25 pt-5">
               <a
-                href={`/safari-packages?destination=${encodeURIComponent(destination.name)}`}
+                href={`/packages?destination=${encodeURIComponent(destination.name)}`}
                 className="inline-flex items-center gap-3 text-[10px] font-extrabold uppercase tracking-[0.16em] text-white transition-colors hover:text-emerald-200 sm:text-xs"
               >
                 Explore Destination
@@ -1520,7 +1521,7 @@ useEffect(() => {
  {/* Handpicked Adventures  */}
 
 <section
-  id="safari-packages"
+  id="packages"
   className="relative isolate overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-28 lg:px-8"
 >
   {/* BACKGROUND DETAILS */}
@@ -1553,7 +1554,7 @@ useEffect(() => {
       </div>
 
       <a
-        href="/safari-packages"
+        href="/packages"
         className="group inline-flex w-fit shrink-0 items-center gap-3 rounded-full border border-[#101412]/15 px-6 py-4 text-xs font-extrabold uppercase tracking-[0.12em] text-[#101412] transition-all hover:border-[#0B5D36] hover:bg-[#0B5D36] hover:text-white"
       >
         View All Packages
@@ -1579,8 +1580,7 @@ useEffect(() => {
             "Wildlife viewing",
             "Accommodation options",
           ],
-          image:
-            "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=85",
+          image:mara3,
           badge: "Safari Favourite",
           price: "Request a quote",
           featured: true,
@@ -1598,8 +1598,7 @@ useEffect(() => {
             "Scenic photography",
             "Game drive experience",
           ],
-          image:
-            "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1200&q=85",
+          image:amboseli,
           badge: "Nature & Wildlife",
           price: "Request a quote",
           featured: false,
@@ -1617,8 +1616,7 @@ useEffect(() => {
             "Coastal experiences",
             "Holiday options",
           ],
-          image:
-            "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=85",
+          image:diani5,
           badge: "Coastal Escape",
           price: "Request a quote",
           featured: false,
@@ -2411,7 +2409,7 @@ useEffect(() => {
 
             <div className="mt-7 space-y-4">
               <a
-                href="/safari-packages"
+                href="/packages"
                 className="group flex items-center gap-4 rounded-2xl border border-gray-100 bg-[#F8FAF7] p-4 transition duration-300 hover:border-[#0B5D36]/25 hover:bg-[#F0F6F0]"
               >
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B5D36]/10 text-xl text-[#0B5D36]">
@@ -2609,7 +2607,7 @@ useEffect(() => {
           {[
             ["Home", "/"],
             ["Destinations", "/destinations"],
-            ["Safari Packages", "/safari-packages"],
+            ["Safari Packages", "/packages"],
             ["About Us", "/about"],
             ["Contact Us", "/contact"],
           ].map(([label, href]) => (
@@ -2642,7 +2640,7 @@ useEffect(() => {
           ].map(([title, description]) => (
             <li key={title} className="group">
               <a
-                href="/safari-packages"
+                href="/packages"
                 className="block"
               >
                 <span className="text-sm font-semibold text-white/80 transition-colors group-hover:text-emerald-300">

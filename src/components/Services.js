@@ -2,31 +2,30 @@
 
 import React from "react";
 import {
-  ArrowRight,
-  ArrowUpRight,
-  Compass,
-  Binoculars,
-  Plane,
-  Hotel,
-  Mountain,
-  Waves,
-  Camera,
-  Users,
+  ArrowRight,  ArrowUpRight,  Compass,  Binoculars,  Plane,  Hotel,  Mountain,  Waves,  Camera,  Users,
   // eslint-disable-next-line no-unused-vars
-  MapPin,
-  CalendarDays,
-  CheckCircle2,
-  Sparkles,
-  MessageCircle,
-  TentTree,
-  Heart,
-  CarFront,
-  Globe2,
-} from "lucide-react";
+  MapPin,  CalendarDays,  CheckCircle2,  Sparkles,  MessageCircle,  TentTree,  Heart,  CarFront,  Globe2,} from "lucide-react";
 import { Link } from "react-router-dom";
-import tiara1 from "../assets/tiara1.jpg";
 
-const WHATSAPP_NUMBER = "254737087846";
+import meru from "../assets/meru.jpg";
+import hellsgate from "../assets/hellsgate.jpg";
+import gorilla from "../assets/gorilla.jpg";
+import serengeti from "../assets/serengeti.jpg";
+import serengeti2 from "../assets/serengeti2.jpg";
+import tanzania from "../assets/tanzania.jpg";
+import Wilderbeast from "../assets/Wilderbeast.jpg";
+import kenya from "../assets/kenya.jpg";
+import image17 from "../assets/image17.jpg";
+import diani5 from "../assets/diani5.jpg";
+import tailormade2 from "../assets/tailormade2.jpg";
+import climbinglongonot from "../assets/climbinglongonot.jpg";
+
+import tiara1 from "../assets/tiara1.jpg";
+import tiara2 from "../assets/tiara2.jpg";
+import tiara5 from "../assets/tiara5.jpg";
+//import safarivan from "../assets/safarivan.jpg";
+
+const WHATSAPP_NUMBER = "+254748799417";
 
 const services = [
   {
@@ -35,8 +34,7 @@ const services = [
     category: "Explore the Wild",
     description:
       "Experience Africa's remarkable wildlife through memorable safari adventures, scenic game drives, and encounters with extraordinary natural landscapes.",
-    image:
-      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1100&q=85",
+    image:serengeti,
     icon: Binoculars,
     features: [
       "National park and reserve visits",
@@ -51,8 +49,7 @@ const services = [
     category: "Designed Around You",
     description:
       "Turn your travel ideas into a personalized journey with destinations, activities, and experiences selected around your interests and schedule.",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1100&q=85",
+    image:tailormade2,
     icon: Compass,
     features: [
       "Personalized itineraries",
@@ -67,8 +64,7 @@ const services = [
     category: "Escape to the Coast",
     description:
       "Discover relaxing coastal escapes, beautiful beaches, ocean views, and opportunities to unwind along Kenya's spectacular coastline.",
-    image:
-      "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1100&q=85",
+    image: diani5,
     icon: Waves,
     features: [
       "Coastal holiday planning",
@@ -99,8 +95,7 @@ const services = [
     category: "Go Beyond Ordinary",
     description:
       "Explore scenic landscapes, discover outdoor experiences, and enjoy opportunities to connect with the natural beauty of Africa.",
-    image:
-      "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1100&q=85",
+    image:climbinglongonot,
     icon: Mountain,
     features: [
       "Nature and scenic excursions",
@@ -116,7 +111,7 @@ const services = [
     description:
       "Bring family, friends, colleagues, or travel groups together for shared adventures and memorable experiences across remarkable destinations.",
     image:
-      "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1100&q=85",
+      tiara2,
     icon: Users,
     features: [
       "Family holiday planning",
@@ -258,7 +253,7 @@ export default function Services() {
       <span>Discover. Experience. Remember.</span>
 
       <a
-        href="#our-services"
+        href="#services"
         className="inline-flex items-center gap-2 transition hover:text-white"
       >
         Explore What We Do
@@ -299,7 +294,7 @@ export default function Services() {
             </p>
 
             <Link
-              to="/safari-packages"
+              to="/packages"
               className="group mt-8 inline-flex items-center gap-3 border-b-2 border-[#0B5D36] pb-2 text-sm font-bold text-[#0B5D36]"
             >
               Browse Safari Packages
@@ -314,7 +309,7 @@ export default function Services() {
             <div className="absolute -left-3 -top-3 h-24 w-24 rounded-tl-3xl border-l-4 border-t-4 border-[#0B5D36] sm:-left-5 sm:-top-5" />
 
             <img
-              src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200&q=85"
+              src={meru}
               alt="Wildlife and landscapes of Africa"
               loading="lazy"
               className="relative h-[350px] w-full rounded-2xl object-cover shadow-xl sm:h-[480px]"
@@ -732,7 +727,7 @@ export default function Services() {
           {[
             ["Home", "/"],
             ["Destinations", "/destinations"],
-            ["Safari Packages", "/safari-packages"],
+            ["Safari Packages", "/packages"],
             ["About Us", "/about"],
             ["Contact Us", "/contact"],
           ].map(([label, href]) => (
@@ -765,7 +760,7 @@ export default function Services() {
           ].map(([title, description]) => (
             <li key={title} className="group">
               <a
-                href="/safari-packages"
+                href="/packages"
                 className="block"
               >
                 <span className="text-sm font-semibold text-white/80 transition-colors group-hover:text-emerald-300">

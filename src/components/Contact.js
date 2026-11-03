@@ -19,9 +19,9 @@ import { Link } from "react-router-dom";
 import tiara1 from "../assets/tiara1.jpg";
 import tiara2 from "../assets/tiara2.jpg";
 
-const WHATSAPP_NUMBER = "254737087846";
-const PHONE_NUMBER = "+254 737 087846";
-const ALTERNATE_PHONE = "+254 748 799417";
+const WHATSAPP_NUMBER = "+254748799417";
+const PHONE_NUMBER = "+254748799417";
+const ALTERNATE_PHONE = "+254748799417";
 const EMAIL = "thetiaratoursandtravel@gmail.com";
 
 const contactDetails = [
@@ -30,7 +30,7 @@ const contactDetails = [
     label: "Call our team",
     value: PHONE_NUMBER,
     subtext: "Speak with us about your next adventure.",
-    href: "tel:+254737087846",
+    href: "tel:+254748799417",
   },
   {
     icon: Mail,
@@ -80,7 +80,7 @@ export default function Contact() {
     event.preventDefault();
 
     const message = [
-      "Hello The Tiara Tours and Safaris!",
+      "Hello Tiara Tours and Safaris!",
       "",
       "I would like to make a travel enquiry.",
       "",
@@ -109,7 +109,7 @@ export default function Contact() {
   {/* BACKGROUND IMAGE */}
   <img
     src={tiara1}
-    alt="Explore Kenya with The Tiara Tours and Safaris"
+    alt="Explore Kenya with Tiara Tours and Safaris"
     className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
   />
 
@@ -152,7 +152,7 @@ export default function Contact() {
       <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row">
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-            "Hello The Tiara Tours and Safaris! I would like to plan a trip."
+            "Hello Tiara Tours and Safaris! I would like to plan a trip."
           )}`}
           target="_blank"
           rel="noreferrer"
@@ -164,7 +164,7 @@ export default function Contact() {
         </a>
 
         <a
-          href="#contact-form"
+          href="#contact"
           className="inline-flex min-h-[46px] items-center justify-center gap-2.5 rounded-full border border-white/35 bg-white/10 px-5 py-3 text-xs font-bold text-white backdrop-blur-sm transition hover:bg-white hover:text-[#101412] sm:px-6 sm:text-sm"
         >
           Send an enquiry
@@ -560,7 +560,7 @@ export default function Contact() {
             </h2>
 
             <p className="mt-5 max-w-xl leading-8 text-gray-600">
-              Contact The Tiara Tours and Safaris to discuss your travel
+              Contact Tiara Tours and Safaris to discuss your travel
               plans, discover available packages, and start planning your
               next getaway.
             </p>
@@ -629,7 +629,7 @@ export default function Contact() {
             </a>
 
             <Link
-              to="/safari-packages"
+              to="/packages"
               className="inline-flex items-center justify-center gap-3 rounded-full border border-white/25 px-7 py-4 font-bold text-white transition hover:bg-white hover:text-[#101412]"
             >
               Explore safaris
@@ -740,7 +740,7 @@ export default function Contact() {
           {[
             ["Home", "/"],
             ["Destinations", "/destinations"],
-            ["Safari Packages", "/safari-packages"],
+            ["Safari Packages", "/packages"],
             ["About Us", "/about"],
             ["Contact Us", "/contact"],
           ].map(([label, href]) => (
@@ -773,7 +773,7 @@ export default function Contact() {
           ].map(([title, description]) => (
             <li key={title} className="group">
               <a
-                href="/safari-packages"
+                href="/packages"
                 className="block"
               >
                 <span className="text-sm font-semibold text-white/80 transition-colors group-hover:text-emerald-300">
@@ -825,7 +825,7 @@ export default function Contact() {
                 Call or WhatsApp
               </span>
               <span className="mt-1 block text-sm font-semibold text-white/85 transition-colors group-hover:text-emerald-300">
-                +254 748 799417
+                +254748799417
               </span>
             </span>
           </a>
@@ -886,7 +886,7 @@ export default function Contact() {
 
         <a
           href={`https://wa.me/254748799417?text=${encodeURIComponent(
-            "Hello The Tiara Tours & Safaris! I'd like to enquire about planning a trip."
+            "Hello Tiara Tours & Safaris! I'd like to enquire about planning a trip."
           )}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -908,7 +908,7 @@ export default function Contact() {
 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <a
-            href="/privacy-policy"
+            href="/"
             className="text-[10px] font-semibold text-white/40 transition-colors hover:text-emerald-300"
           >
             Privacy Policy
